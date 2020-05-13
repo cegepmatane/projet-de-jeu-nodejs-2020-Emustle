@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+    <script src="lib/MultiNode.js"></script>
+</head>
+<body>
+
+    <form id="formulaire-authentification">
+        <fieldset>
+            <lable>Pseudonyme</lable>
+            <input type="text" id="pseudonyme"/>
+            <input type="submit" value="Authentification" id="bouton-authentification"/>
+        </fieldset>
+    </form>
+
+    <form id="formulaire-jeu">
+        <fieldset>
+            <legend>Point de vie</legend>
+            <input type="text" id="point-de-vie" value=""/>
+        </fieldset>
+        <input type="submit" value="Attaquer" id="bouton-attaquer"/>
+        <input type="text" id="attaque"/>
+
+        <fieldset >
+            <legend id="information-autre-joueur">Point de vie {nom-autre-joueur}</legend>
+            <input type="text" id="point-de-vie-autre-joueur" value=""/>
+        </fieldset>
+    </form>
+
+
+    <script src="action/attaque.js"></script>
+
+
+
+</body>
+</html>
