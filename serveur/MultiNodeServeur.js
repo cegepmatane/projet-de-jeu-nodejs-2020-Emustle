@@ -16,6 +16,13 @@
     var listeConnection;
     var listeJoueur;
 
+    const VARIABLE = 
+    {
+        ATTAQUE: "attaque",
+        POINT_DE_VIE: "point-de-vie",
+        FIN_PARTIE: "fin-partie"
+    };
+
     var messageTransfertVariable = {etiquette:"TRANSFERT_VARIABLE"};
     var messageDemandeAuthentification = {etiquette:"DEMANDE_AUTHENTIFICATION"};
     // messages recus
@@ -73,14 +80,42 @@
 
                 case messageTransfertVariable.etiquette:
 
-                    repondreTransfertVariable(messageReconstruit);
+                    repondreTransfertVariable(traiterVariableJeu(messageReconstruit));
                     
                 break;
 
             }
 
-        }
+            validerFinPartie();
 
+        }
+    }
+
+    function validerFinPartie()
+    {
+        console.log("validerFinPartie", "entrée");
+
+        var variable = null;
+
+        listeJoueur.forEach(function (itemListeJoueur, indexListeJoueur)
+        {
+            if(itemListeJoueur.pointDeVie <= 0)
+            {
+                variable =
+                {
+                    type: "booleen",
+                    cle: itemListeJoueur.pseudonyme + "=>" + VARIABLE.FIN_PARTIE,
+                    valeur: true
+                };
+            }
+        });
+
+        //Si variable a été définie, alors cela veut dire que la partie est terminée
+        if(variable)
+        {
+            messageTransfertVariable.variable = variable;
+            repondreTransfertVariable(messageTransfertVariable);
+        }
     }
 
     function agirSurFermetureConnection(raison, description){
@@ -117,7 +152,10 @@
         identifiantConnection = listeConnection.indexOf(connection);
         
         listeJoueur[identifiantConnection] = 
-            {pseudonyme : messageDemandeAuthentification.pseudonyme};
+        {
+            pseudonyme : messageDemandeAuthentification.pseudonyme,
+            pointDeVie : 20
+        };
 
         messageNotificationAuthentification.pseudonyme = 
             messageDemandeAuthentification.pseudonyme;
@@ -158,7 +196,63 @@
 
     }
 
+    function traiterVariableJeu(messageReconstruit)
+    {
+        console.log("traiterVariableJeu", "entrée");
 
+        var variable = messageReconstruit.variable;
+        var cle = identifierComposantCleVariable(variable.cle);
+        console.log("traiterVariableJeu - variables", variable , "=" , cle);
+
+        if(cle.nomAnonyme == VARIABLE.ATTAQUE)
+        {            
+            variable = attaquer(cle.pseudonyme, variable.valeur);
+        }
+
+        if(variable)
+        {
+            console.log("traiterVariableJeu si variable", variable);
+            messageReconstruit.variable = variable;
+        }
+
+        return messageReconstruit;
+    }
+
+    function identifierComposantCleVariable(cleVariable)
+    {
+        var composantCle = cleVariable.split('=>');
+        var cle =
+        {
+            pseudonyme : composantCle[0],
+            nomAnonyme : composantCle[1]
+        }
+
+        return cle;
+    }
+
+
+    function attaquer(pseudonymeAttaquant, valeur)
+    {
+        console.log("attaquer", "entrée");
+        var variable = null;
+        listeJoueur.forEach(function (itemListeJoueur, indexListeJoueur)
+        {
+            //On cherche le joueur attaqué
+            if(itemListeJoueur.pseudonyme.indexOf(pseudonymeAttaquant) < 0)
+            {
+                //On applique les points de vie à enlever
+                itemListeJoueur.pointDeVie -= valeur;
+                variable = 
+                {
+                    type: "numerique",
+                    cle : itemListeJoueur.pseudonyme + "=>" + VARIABLE.POINT_DE_VIE,
+                    valeur : itemListeJoueur.pointDeVie
+                };
+            }
+        });
+        //Retour des points de vie du joueur qui a été attaqué
+        return variable;    
+    }
 
     function getListeAutrePseudonyme(pseudonyme){
         listePseudonyme = [];
@@ -175,7 +269,6 @@
         
         return listePseudonyme;
     }
-
 
 })();
 

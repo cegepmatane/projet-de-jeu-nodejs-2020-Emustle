@@ -6,7 +6,8 @@
     const VARIABLE =
         {
             ATTAQUE : "attaque",
-            POINT_DE_VIE : "point-de-vie"
+            POINT_DE_VIE : "point-de-vie",
+            FIN_PARTIE : "fin-partie"
         };
 
     var multiNode;
@@ -101,23 +102,36 @@
 
                 break;
 
+                case VARIABLE.FIN_PARTIE:
+
+                    appliquerFinPartie("perdu");
+
+                    break;
             }
 
         }else{
 
             switch (cle.nomAnonyme) {
 
+                /*
                 case VARIABLE.ATTAQUE:
 
                     subirAttaque(variable.valeur);
 
                 break;
+                */
 
                 case VARIABLE.POINT_DE_VIE:
 
                     changerPointdeVieAutreJoueur(variable.valeur);
 
                 break;
+
+                case VARIABLE.FIN_PARTIE:
+
+                    appliquerFinPartie("gagné");
+
+                    break;
 
             }
 
@@ -239,6 +253,7 @@
 
     }
 
+    /*
     function subirAttaque(valeur){
 
         console.log("subirAttaque()=>valeur" + valeur);
@@ -248,6 +263,7 @@
             listeJoueur[pseudonymeJoueur].pointDeVie - valeur);
 
     }
+    */
 
     function changerPointdeVieJoueur(nouveauPointDeVie){
 
@@ -256,7 +272,7 @@
         listeJoueur[pseudonymeJoueur].pointDeVie = nouveauPointDeVie;
         pointDeVie.value = nouveauPointDeVie;
 
-        validerFinPartie();
+        //validerFinPartie();
 
     }
 
@@ -267,10 +283,11 @@
         listeJoueur[pseudonymeAutreJoueur].pointDeVie = nouveauPointDeVie;
         pointDeVieAutreJoueur.value = nouveauPointDeVie;
 
-        validerFinPartie();
+        //validerFinPartie();
 
     }
 
+    /*
     function validerFinPartie(){
 
         console.log("changerPointdeVieAutreJoueur()");
@@ -285,6 +302,14 @@
 
         }
 
+    }
+    */
+
+    function appliquerFinPartie(message)
+    {
+        console.log("appliquerFinPartie : ", message);
+
+        alert("Vous avez " + message + "!");
     }
 
     initialiser();
