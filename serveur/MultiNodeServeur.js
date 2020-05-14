@@ -16,9 +16,12 @@
     var listeConnection;
     var listeJoueur;
 
+    const POINTS_DE_VIE_MAXIMUM = 20;
+
     const VARIABLE = 
     {
         ATTAQUE: "attaque",
+        SOIN: "soin",
         POINT_DE_VIE: "point-de-vie",
         FIN_PARTIE: "fin-partie"
     };
@@ -154,7 +157,7 @@
         listeJoueur[identifiantConnection] = 
         {
             pseudonyme : messageDemandeAuthentification.pseudonyme,
-            pointDeVie : 20
+            pointDeVie : POINTS_DE_VIE_MAXIMUM
         };
 
         messageNotificationAuthentification.pseudonyme = 
@@ -208,6 +211,10 @@
         {            
             variable = attaquer(cle.pseudonyme, variable.valeur);
         }
+        else if(cle.nomAnonyme = VARIABLE.SOIN)
+        {
+            variable = soigner(cle.pseudonyme, variable.valeur);
+        }
 
         if(variable)
         {
@@ -251,6 +258,32 @@
             }
         });
         //Retour des points de vie du joueur qui a été attaqué
+        return variable;    
+    }
+
+    function soigner(pseudonymeJoueurASoigner, valeurSoin)
+    {
+        var variable = null;
+        listeJoueur.forEach(function (itemListeJoueur, indexListeJoueur)
+        {
+            if(itemListeJoueur.pseudonyme.indexOf(pseudonymeJoueurASoigner) >= 0)
+            {
+                if(itemListeJoueur.pointDeVie + valeurSoin > POINTS_DE_VIE_MAXIMUM)
+                {
+                    itemListeJoueur.pointDeVie = POINTS_DE_VIE_MAXIMUM;
+                }
+                else
+                {
+                    itemListeJoueur.pointDeVie += valeurSoin;
+                }
+                variable = 
+                {
+                    type: "numerique",
+                    cle : itemListeJoueur.pseudonyme + "=>" + VARIABLE.POINT_DE_VIE,
+                    valeur : itemListeJoueur.pointDeVie
+                };
+            }
+        });
         return variable;    
     }
 

@@ -3,9 +3,11 @@
     const NOMBRE_JOUEUR_REQUIS = 2;
     const NOMBRE_POINT_DE_VIE = 20;
     const FORCE_MAXIMUM = 3;
+    const SOIN_MAXIMUM = 5;
     const VARIABLE =
         {
             ATTAQUE : "attaque",
+            SOIN : "soin",
             POINT_DE_VIE : "point-de-vie",
             FIN_PARTIE : "fin-partie"
         };
@@ -16,6 +18,8 @@
     var boutonAuthentification;
 
     var formulaireJeu;
+    var boutonAttaquer;
+    var boutonSoigner;
     var pointDeVie;
     var attaque;
     var informationAutreJoueur;
@@ -52,8 +56,14 @@
         boutonAuthentification = document.getElementById("bouton-authentification");
 
         formulaireJeu = document.getElementById("formulaire-jeu");
-        formulaireJeu.addEventListener("submit", attaquerAutreJoueur)
+        //formulaireJeu.addEventListener("submit", attaquerAutreJoueur);
         formulaireJeu.style.display = "none";
+
+        boutonAttaquer = document.getElementById("bouton-attaquer");
+        boutonSoigner = document.getElementById("bouton-soigner");
+
+        boutonAttaquer.addEventListener("click", attaquerAutreJoueur);
+        boutonSoigner.addEventListener("click", soignerJoueur);
 
         pointDeVie = document.getElementById("point-de-vie");
         attaque = document.getElementById("attaque");
@@ -237,6 +247,12 @@
 
     }
 
+    function genererValeurSoin(){
+
+        return Math.floor(Math.random() *   SOIN_MAXIMUM) + 1;
+
+    }
+
     function attaquerAutreJoueur(evenement){
 
         console.log("attaquerAutreJoueur()");
@@ -251,6 +267,20 @@
             pseudonymeJoueur + "=>" + VARIABLE.ATTAQUE,
             forceAttaque);
 
+    }
+
+    function soignerJoueur(evenement)
+    {
+        console.log("soignerJoueur()");
+
+        evenement.preventDefault();
+
+        var valeurSoin = genererValeurSoin();
+
+        multiNode.posterVariableNumerique(
+            pseudonymeJoueur + "=>" + VARIABLE.SOIN,
+            valeurSoin
+        );
     }
 
     /*
