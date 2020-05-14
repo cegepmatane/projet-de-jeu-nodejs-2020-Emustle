@@ -1,0 +1,14 @@
+Subject,Body,Attachment,Author,Created At,Updated At
+La fonction de log,"La fonction de log, invoquée par la commande ""console.log(param);"" permet d'afficher dans la console de l'application utilisée, les informations passées en paramètres. Elle peut servir pour déboguer rapidement et simplement du code ou bien simplement garder une trace de l’exécution du code à travers un script.
+","",Emustle (blobivon),2020-05-14 03:42:26 UTC,2020-05-14 03:53:26 UTC
+Les callback,"Une fonction de rappel (aussi appelée callback en anglais) est une fonction passée dans une autre fonction en paramètre, afin d'être appeler plus tard pour effectuer une action spécifique. Les callbacks sont utilisés principalement comme façon de gérer des évènements dès qu'il surviennent ou pour appeler des fonctions entre fichiers.
+","",Emustle (blobivon),2020-05-14 03:42:15 UTC,2020-05-14 03:50:36 UTC
+Les avantages de Node.JS,"Premièrement, NodeJS est une plateforme logicielle en JavaScript qui intègre un serveur HTTP, rendant possible aux développeurs JavaScript de ne pas seulement faire que du front-end mais aussi de créer et faire évoluer leur propre serveur.
+Aussi, NodeJS accepte une utilisation en multithread ce qui permet d'atteindre des performances excellentes.
+NodeJS est aussi stable et utilisé par de grands noms de l'informatique : Netflix, Trello, PayPal, LinkedIn, Walmart, Uber, etc.
+","",Emustle (blobivon),2020-05-14 03:42:32 UTC,2020-05-14 03:57:40 UTC
+NPM,"NPM est le gestionnaire de paquet de Node.JS. Il est utilisé pour acquérir, dès que l'utilisateur en a besoin, des dépendances pour des applications. Par exemple, ""websocket"" est une dépendance de Node.JS téléchargeable avec le gestionnaire NPM et permet de garder une connexion active dans un usage client-serveur.
+","",Emustle (blobivon),2020-05-14 03:42:06 UTC,2020-05-14 03:47:26 UTC
+La fonction require,"La fonction require permet dans NodeJS d'intégrer des dépendances au code qui auront d'abord été téléchargées via NPM.
+Cela rend les applications NodeJS très modulables et adaptables facilement
+","",Emustle (blobivon),2020-05-14 03:42:00 UTC,2020-05-14 03:59:07 UTC
